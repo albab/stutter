@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <histedit.h>
 
-//Declare a static buffer for user input of maximum size 2048
-static char input[2048];
+#include <editline/readline.h>
 
 int main(int argc, char** argv) {
 	
@@ -11,14 +12,21 @@ int main(int argc, char** argv) {
 	
 	//Loop foreeeeeeeevveeeerrrrrr
 	while(1) {
-		//prompt output
-		fputs("stutter> ", stdout);
+		//print prompt and retrieve user input
+		char* input = readline("stutter> ");
+		
+		//Add user input to history
+		add_history(input);
 		
 		//Read a line of user input of max size 2048;
-		fgets(input, 2048, stdin);
+		printf("Yeah, that was %s\n",input);
 		
 		//Print out prior input;
 		printf("That was %s", input);
+		
+		//release input's memory
+		free(input);
+		
 	}
 	
 	
